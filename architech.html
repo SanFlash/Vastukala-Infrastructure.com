@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Architecture Page</title>
+    <link rel="stylesheet" href="CSS/style.css">
+    <script src="JS/script.js" defer></script>
+    <script src="JS/script1.js" defer></script>
+    <style>
+        body {
+            background-color: rgb(230, 221, 215);
+            font-family: Arial, sans-serif;
+        }
+        .navbar {
+            height: 15%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px;
+        }
+        .nav-links {
+            display: flex;
+            list-style-type: none;
+        }
+        .nav-links li {
+            margin: 0 10px;
+        }
+        .nav-links a {
+            text-decoration: none;
+        }
+        .services-section, .contact-section {
+            padding: 20px;
+            margin-top: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .service-cards {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .service-card {
+            width: 280px;
+            height: 180px;
+            overflow: hidden;
+            border: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f9f9f9;
+            position: relative;
+        }
+        .delete-btn {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background-color: red;
+            color: white;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+        }
+        .admin-controls {
+            margin-top: 30px;
+            display: none; /* Hidden by default, visible only to admin */
+        }
+        .footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #333;
+            color: white;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <img alt="logos" src="image/VI-removebg-preview.png" style="width:100px">
+        <div class="logo" style="text-align: center; padding-top: 35px;">
+            <b style="height: auto; margin-top:50%">Vastukala</b>
+            <b style="height: auto; margin-top:50%">Infrastructure</b>
+        </div>
+        <menu class="nav-links">
+            <li><a href="" onclick="window.location='index.html'">Home</a></li>
+            <li><a href="" onclick="window.location='social.html'">Contact</a></li>
+        </menu>
+    </nav>
+    <br><br><br><br><br><br><br><br>
+    <div id="content" class="services-section">
+        <section class="gallery">
+            <h2>Our Architecture-Planning Gallery</h2>
+            <div class="service-cards" id="gallery">
+                <!-- Uploaded images will be displayed here -->
+            </div>
+        </section>
+
+        <section class="video">
+            <h2>Architecture-Planning Video</h2>
+            <div class="service-cards" id="videoGallery">
+                <!-- Uploaded videos will be displayed here -->
+            </div>
+        </section>
+    </div>
+    <br><br><br><br><br><br><br>
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2024 Vastukala Infrastructure. All Rights Reserved.</p>
+    </footer>
+
+</body>
+</html>

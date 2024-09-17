@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Structure Drawing - Admin Upload</title>
+    <link rel="stylesheet" href="CSS/style.css">
+    <style>
+        body {
+            background-color: rgb(230, 221, 215);
+            font-family: Arial, sans-serif;
+        }
+
+        .navbar {
+            height: 15%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style-type: none;
+        }
+
+        .nav-links li {
+            margin: 0 10px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            padding: 10px;
+            background-color: #333;
+            color: white;
+            border-radius: 5px;
+        }
+
+        .services-section,
+        .contact-section {
+            padding: 20px;
+            margin-top: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .service-cards {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .service-card {
+            width: 280px;
+            height: 180px;
+            overflow: hidden;
+            border: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f9f9f9;
+            position: relative;
+        }
+
+        .delete-btn {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background-color: red;
+            color: white;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .upload-section {
+            margin: 30px 0;
+            padding: 20px;
+            text-align: center;
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .upload-section:hover {
+            transform: translateY(-5px);
+        }
+
+        .upload-section h2 {
+            font-size: 1.8em;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .upload-section select,
+        .upload-section input[type="file"],
+        .upload-section button {
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            font-size: 16px;
+            background-color: #f9f9f9;
+            cursor: pointer;
+        }
+
+        .upload-section button {
+            background-color: #4CAF50;
+            color: white;
+            transition: background-color 0.3s;
+        }
+
+        .upload-section button:hover {
+            background-color: #45a049;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #333;
+            color: white;
+            margin-top: 20px;
+        }
+
+        .panel-section {
+            padding: 20px;
+            margin-top: 30px;
+            background-color: #fff;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .panel-button {
+            padding: 10px 20px;
+            margin: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .panel-button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Styles for the notification popup */
+        .notification-popup {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            font-size: 16px;
+            text-align: center;
+        }
+
+        .notification-popup.show {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <img alt="logos" src="image/VI-removebg-preview.png" style="width:100px">
+        <div class="logo" style="text-align: center; padding-top: 35px;">
+            <b>Vastukala Infrastructure</b>
+        </div>
+        <menu class="nav-links">
+            <li><a href="" onclick="window.location='index.html'">Logout</a></li>
+            <li><a href="#contact-info">Contact</a></li>
+        </menu>
+    </nav>
+
+    <br><br><br><br><br><br><br><br>
+
+    <!-- Image Upload Section -->
+    <div class="upload-section">
+        <h2>Upload Media Files</h2>
+        <select id="pageSelect">
+            <option value="Architecture-Planning">Architecture</option>
+            <option value="Interior-Design">Interior Design</option>
+            <option value="Exterior-Design">Exterior Design</option>
+            <option value="Structure-Drawing">Structure Drawing</option>
+            <option value="Materials">Materials</option>
+            <option value="3D-Elevation">3D-Elevation</option>
+            <option value="3D-Walkthrough">3D-Walkthrough</option>
+        </select>
+        <input type="file" id="fileInput" accept="image/, video/" multiple>
+        <button onclick="previewFiles()">Preview File</button>
+        <button onclick="uploadFiles()">Upload File</button>
+        <div id="previewArea" class="service-cards"></div>
+    </div>
+
+    <!-- Redirection Panel Section -->
+    <div class="panel-section">
+        <h2>Navigate to Pages</h2>
+        <button class="panel-button" onclick="window.location.href='architech.html'">Architecture</button>
+        <button class="panel-button" onclick="window.location.href='interior.html'">Interior Design</button>
+        <button class="panel-button" onclick="window.location.href='exterior.html'">Exterior Design</button>
+        <button class="panel-button" onclick="window.location.href='structure.html'">Structure Drawing</button>
+        <button class="panel-button" onclick="window.location.href='materials.html'">Materials</button>
+        <button class="panel-button" onclick="window.location.href='elevation.html'">3D Elevation</button>
+        <button class="panel-button" onclick="window.location.href='walkthrough.html'">3D Walkthrough</button>
+    </div>
+
+    <div class="upload-section">
+        <h2>Uploaded Media</h2>
+        <select id="viewPageSelect" onchange="showUploadedFiles()">
+            <option value="Architecture-Planning">Architecture</option>
+            <option value="Interior-Design">Interior Design</option>
+            <option value="Exterior-Design">Exterior Design</option>
+            <option value="Structure-Drawing">Structure Drawing</option>
+            <option value="Materials">Materials</option>
+            <option value="3D-Elevation">3D-Elevation</option>
+            <option value="3D-Walkthrough">3D-Walkthrough</option>
+        </select>
+        <div id="uploadedMediaArea" class="service-cards"></div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2024 Vastukala Infrastructure. All Rights Reserved.</p>
+    </footer>
+
+    <!-- Notification Popup -->
+    <div id="notificationPopup" class="notification-popup">
+        File uploaded successfully!
+    </div>
+
+    <script>
+        const cloudName = 'dws0ppoax';
+        const uploadPreset = 'g3bevrt4';
+
+        // Preview selected files before upload
+        function previewFiles() {
+            const files = document.getElementById('fileInput').files;
+            const previewArea = document.getElementById('previewArea');
+            previewArea.innerHTML = ''; // Clear previous previews
+
+            Array.from(files).forEach(file => {
+                const fileReader = new FileReader();
+                fileReader.onload = function (event) {
+                    const newElement = document.createElement(file.type.startsWith('image/') ? 'img' : 'video');
+                    newElement.src = event.target.result;
+                    newElement.style.width = '280px';
+                    newElement.style.height = '180px';
+                    if (file.type.startsWith('video/')) {
+                        newElement.controls = true;
+                    }
+                    const serviceCard = document.createElement('div');
+                    serviceCard.className = 'service-card';
+                    serviceCard.appendChild(newElement);
+                    previewArea.appendChild(serviceCard);
+                };
+                fileReader.readAsDataURL(file);
+            });
+        }
+
+        // Upload selected files to Cloudinary
+        function uploadFiles() {
+            const files = document.getElementById('fileInput').files;
+            const page = document.getElementById('pageSelect').value;
+
+            Array.from(files).forEach(file => {
+                const formData = new FormData();
+                formData.append('file', file);
+                formData.append('upload_preset', uploadPreset);
+                formData.append('folder', page);
+
+                fetch(`https://api.cloudinary.com/v1_1/${cloudName}/upload`, {
+                    method: 'POST',
+                    body: formData
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log('File uploaded:', data);
+                        showUploadedFiles(); // Refresh uploaded media
+                        showNotification(); // Show notification popup
+                    })
+                    .catch(error => {
+                        console.error('Error uploading file:', error);
+                    });
+            });
+        }
+
+        // Fetch and display uploaded files
+        function showUploadedFiles() {
+            const page = document.getElementById('viewPageSelect').value;
+            const uploadedMediaArea = document.getElementById('uploadedMediaArea');
+            uploadedMediaArea.innerHTML = ''; // Clear previous media
+
+            fetch(`https://api.cloudinary.com/v1_1/${cloudName}/resources/search?expression=folder:${page}`, {
+                headers: {
+                    Authorization: 'Basic ' + btoa('324122565377186:XXoMa6DFCtmwqdA_M6TL-w_J-x0') // Replace with your actual API Key and Secret
+                }
+            })
+                .then(response => response.json())
+                .then(data => {
+                    data.resources.forEach(resource => {
+                        const newElement = document.createElement(resource.resource_type === 'image' ? 'img' : 'video');
+                        newElement.src = resource.secure_url;
+                        newElement.style.width = '280px';
+                        newElement.style.height = '180px';
+                        if (resource.resource_type === 'video') {
+                            newElement.controls = true;
+                        }
+                        const serviceCard = document.createElement('div');
+                        serviceCard.className = 'service-card';
+                        serviceCard.appendChild(newElement);
+                        uploadedMediaArea.appendChild(serviceCard);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error fetching uploaded media:', error);
+                });
+        }
+
+        // Show notification popup
+        function showNotification() {
+            const popup = document.getElementById('notificationPopup');
+            popup.classList.add('show');
+            setTimeout(() => {
+                popup.classList.remove('show');
+            }, 3000); // Hide after 3 seconds
+        }
+
+        window.onload = showUploadedFiles; // Load uploaded files when the page loads
+    </script>
+</body>
+
+</html>
